@@ -4,12 +4,12 @@
  * and open the template in the editor.
  */
 
-package jm.gov.documentcomponent;
+package jm.gov.gojpcms.documentcomponent;
 
 /**
  *
  * @author RiteshReddy
  */
-public class Report {
+public class ProgressReport extends Report {
     
 }

@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package jm.gov.projectcomponent;
+package jm.gov.gojpcms.projectcomponent;
 
 /**
  *

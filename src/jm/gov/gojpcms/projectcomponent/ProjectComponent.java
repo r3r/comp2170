@@ -4,16 +4,16 @@
  * and open the template in the editor.
  */
 
-package jm.gov.projectcomponent;
+package jm.gov.gojpcms.projectcomponent;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import jm.gov.aclcomponent.AclComponent;
-import jm.gov.aclcomponent.Session;
-import jm.gov.documentcomponent.DocumentComponent;
-import jm.gov.documentcomponent.ExpenditureReport;
-import jm.gov.documentcomponent.ProgressReport;
-import jm.gov.documentcomponent.Report;
+import jm.gov.gojpcms.aclcomponent.AclComponent;
+import jm.gov.gojpcms.aclcomponent.Session;
+import jm.gov.gojpcms.documentcomponent.DocumentComponent;
+import jm.gov.gojpcms.documentcomponent.ExpenditureReport;
+import jm.gov.gojpcms.documentcomponent.ProgressReport;
+import jm.gov.gojpcms.documentcomponent.Report;
 
 /**
  *

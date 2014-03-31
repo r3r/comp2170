@@ -4,12 +4,12 @@
  * and open the template in the editor.
  */
 
-package jm.gov.projectcomponent;
+package jm.gov.gojpcms.projectcomponent;
 
 /**
  *
  * @author RiteshReddy
  */
-public class FundingArrangement {
+public class ProjectBeneficiaries {
     
 }

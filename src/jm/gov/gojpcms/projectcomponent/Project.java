@@ -4,10 +4,10 @@
  * and open the template in the editor.
  */
 
-package jm.gov.projectcomponent;
+package jm.gov.gojpcms.projectcomponent;
 
 import java.util.ArrayList;
-import jm.gov.documentcomponent.Document;
+import jm.gov.gojpcms.documentcomponent.Document;
 
 /**
  *

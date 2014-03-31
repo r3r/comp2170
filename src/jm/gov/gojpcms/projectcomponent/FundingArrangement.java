@@ -4,16 +4,12 @@
  * and open the template in the editor.
  */
 
-package jm.gov.aclcomponent;
+package jm.gov.gojpcms.projectcomponent;
 
 /**
  *
  * @author RiteshReddy
  */
-public class Session {
-    
-    public static User getCurrentUser(){
-        return new User();
-    }
+public class FundingArrangement {
     
 }

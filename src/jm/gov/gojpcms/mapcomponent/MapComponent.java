@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package jm.gov.mapcomponent;
+package jm.gov.gojpcms.mapcomponent;
 
 import java.awt.geom.Point2D.Float;
 
