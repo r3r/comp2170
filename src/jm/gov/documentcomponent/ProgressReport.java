@@ -4,19 +4,12 @@
  * and open the template in the editor.
  */
 
-package gojpcms;
+package jm.gov.documentcomponent;
 
 /**
  *
  * @author RiteshReddy
  */
-public class GOJPCMS {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
-    }
+public class ProgressReport extends Report {
     
 }
