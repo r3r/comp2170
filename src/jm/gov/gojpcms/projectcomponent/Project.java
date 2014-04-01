@@ -10,43 +10,74 @@ import java.util.ArrayList;
 import jm.gov.gojpcms.documentcomponent.Document;
 
 /**
- *
- * @author RiteshReddy
+ * Project represents a GOJPCMS project
+ * @author JCARJ
  */
 public class Project {
     
+    /**
+     * To generate automatic unique IDs for Projects
+     */
     private static float nextId = 0;
 
-    public static float getNextId() {
-        return nextId;
-    }
-
-    public static void setNextId(float aNextId) {
-        nextId = aNextId;
-    }
-    
+    /**
+     * Project Id
+     */
     private float id;
     
+    /**
+     * Project name
+     */
     private String name;
     
+    /**
+     * Project Description
+     */
     private String  description;
     /**
      * Funding Arrangement for the project
      */
     private FundingArrangement fa;
     
+    /**
+     * Project state
+     */
     private ProjectState state;
     
+    /**
+     * Project Document List
+     */
     private ArrayList<Document> projectDocuments;
     
+    
+    /**
+     * Project Geographic Location
+     */
     private String projectLocation;
     
+    /**
+     * Project Funding Type : Capital A or Capital B
+     */
     private ProjectType projectFundingType;
 
+    /**
+     * Total Cost for the project (Aggregate cost of all sub-projects)
+     */
     private float  totalCost;
-
+    /**
+     * Project Beneficiaries
+     */
     private ProjectBeneficiaries beneficiaries;
 
+    /**
+     * Constructor
+     * @param name - Project name
+     * @param description - Project Description
+     * @param projectLocation - Geographic Location
+     * @param projectFundingType - Funding Type: Capital A or Capital B
+     * @param fa - funding arrangement
+     * @param beneficiaries - beneficiaries
+     */
     public Project(String name, String description, String projectLocation, ProjectType projectFundingType, FundingArrangement fa, ProjectBeneficiaries beneficiaries) {
         this.id = ++Project.nextId;
         this.name = name;
@@ -143,11 +174,18 @@ public class Project {
     
 }
 
-
+/**
+ * Enum for the different project states
+ * @author JCARJ
+ */
 enum ProjectState {
     INCEPTION, PREPARATION, IMPLEMENTATION, TERMINATION, POSTEVALUATION, CANCELLED
 }
 
+/**
+ * Enum for project funding type
+ * @author JCARJ
+ */
 enum ProjectType {
     CAPITAL_A, CAPITAL_B
 }

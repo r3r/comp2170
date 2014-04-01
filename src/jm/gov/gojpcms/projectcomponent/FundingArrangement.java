@@ -8,7 +8,7 @@ package jm.gov.gojpcms.projectcomponent;
 
 /**
  *
- * @author RiteshReddy
+ * @author JCARJ
  */
 public class FundingArrangement {
     

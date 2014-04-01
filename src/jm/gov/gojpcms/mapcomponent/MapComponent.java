@@ -10,18 +10,29 @@ import java.awt.geom.Point2D.Float;
 
 /**
  *
- * @author RiteshReddy
+ * @author JCARJ
  */
 public class MapComponent {
     
+    /**
+     * Get latitude and longitude for a given location string
+     * @param location - Geographic Location/ Address
+     * @return Point2D.Float - Coordinates
+     */
     public Float getCoordinate(String location){
         //Access Google Maps API
         return new Float(0,0);
         
     }
     
-    public String renderMap(Float[] locations){
-        return "";
+    /**
+     * Renders a geographic maps with tags placed at given coordinates
+     * @param locations Float[] - List of coordinates
+     * @param tags String[] - List of matching tags for coordinates to place on the map
+     * 
+     */
+    public void renderMap(Float[] locations, String[] tags){
+       
     }
     
 }

@@ -8,7 +8,7 @@ package jm.gov.gojpcms.aclcomponent;
 
 /**
  *
- * @author RiteshReddy
+ * @author JCARJ
  */
 public class User {
     

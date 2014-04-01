@@ -9,20 +9,26 @@ package jm.gov.gojpcms.projectcomponent;
 import java.util.ArrayList;
 import java.util.Iterator;
 import jm.gov.gojpcms.aclcomponent.AclComponent;
-import jm.gov.gojpcms.aclcomponent.Session;
 import jm.gov.gojpcms.documentcomponent.DocumentComponent;
 import jm.gov.gojpcms.documentcomponent.ExpenditureReport;
 import jm.gov.gojpcms.documentcomponent.ProgressReport;
 import jm.gov.gojpcms.documentcomponent.Report;
 
 /**
- *
- * @author RiteshReddy
+ * Manager/Driver for Project and related classes
+ * @author JCARJ
  */
 public class ProjectComponent {
-    
+    /**
+     * List of all Projects in GOJPCMS
+     */
     private ArrayList<Project> projects;
 
+    /**
+     * 
+     * @param id - Project Id
+     * @return Report[] - Returns progress report and expenditure report
+     */
     public Report[] getProjectDetails(float id){
         
         Report[] details = new Report[2];
@@ -48,6 +54,16 @@ public class ProjectComponent {
         return details;
     }   
     
+    /**
+     * 
+     * @param name - project name
+     * @param description - project description
+     * @param location - geographic location
+     * @param fundingType - funding type
+     * @param fa - Funding arrangement
+     * @param beneficiaries - beneficiaries
+     * @return String - "Success" or "Failure"
+     */
     public String addProject(String name, String description, String location, ProjectType fundingType, FundingArrangement fa, ProjectBeneficiaries beneficiaries){
         
        if (AclComponent.hasAccess(AclComponent.getCurrentUser())){
@@ -62,6 +78,17 @@ public class ProjectComponent {
                
     }
     
+    /**
+     * 
+     * @param id - id of the project being edited
+     * @param name - project name
+     * @param description - project description
+     * @param location - geographic location
+     * @param fundingType - funding type
+     * @param fa - Funding arrangement
+     * @param beneficiaries - beneficiaries
+     * @return String - "Success" or "Failure"
+     */
     public String editProject(float id,String name, String description, String location, ProjectType fundingType, FundingArrangement fa, ProjectBeneficiaries beneficiaries ){
         if (AclComponent.hasAccess(AclComponent.getCurrentUser())){
             Iterator<Project> it = this.projects.iterator();
@@ -104,6 +131,11 @@ public class ProjectComponent {
         }
     }
     
+    /**
+     * 
+     * @param id - id of project to cancel
+     * @return String "Success" or "Failure"
+     */
     public String cancelProject(float id){
         if (AclComponent.hasAccess(AclComponent.getCurrentUser())){
             Iterator<Project> it = this.projects.iterator();

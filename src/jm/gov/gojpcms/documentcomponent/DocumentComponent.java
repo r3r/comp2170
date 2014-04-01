@@ -3,22 +3,31 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package jm.gov.gojpcms.documentcomponent;
 
 import jm.gov.gojpcms.projectcomponent.Project;
 
 /**
  *
- * @author RiteshReddy
+ * @author JCARJ
  */
 public class DocumentComponent {
-    
-    public ExpenditureReport getExpenditureReport(Project proj){
+
+    /**
+     *
+     * @param proj - Project Object
+     * @return ExpenditureReport of the given project
+     */
+    public ExpenditureReport getExpenditureReport(Project proj) {
         return new ExpenditureReport();
     }
-    
-    public ProgressReport generateProgressReport(Project proj){
+
+    /**
+     *
+     * @param proj - Project object
+     * @return ProgressReport of the given project
+     */
+    public ProgressReport generateProgressReport(Project proj) {
         return new ProgressReport();
     }
 }

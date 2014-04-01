@@ -8,7 +8,7 @@ package jm.gov.gojpcms.documentcomponent;
 
 /**
  *
- * @author RiteshReddy
+ * @author JCARJ
  */
 public class ExpenditureReport extends Report {
     
