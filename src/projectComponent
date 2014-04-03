@@ -32,7 +32,15 @@ public class projectComponent
     public int addProject(String name, String type, String fundingType, String Location)
     {
         // put your code here
-        int projectId= 1;
+        if (aclComponent.hasAccess(System.CurrentUser))
+        {
+            int projectId= 1;
+            Project project= new Project(String name, String type, String fundingType, String Location)
+        }
+        else
+        {
+            projectId=0;
+        }
         
         return projectId;
     }
