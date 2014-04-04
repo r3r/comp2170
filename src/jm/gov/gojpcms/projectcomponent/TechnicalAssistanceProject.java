@@ -14,8 +14,8 @@ public class TechnicalAssistanceProject extends Project{
     private Consultant consultant;
     private TermsOfReference tof;
 
-    public TechnicalAssistanceProject(String name, String description, String projectLocation, ProjectType projectFundingType, FundingArrangement fa, ProjectBeneficiaries beneficiaries) {
-        super(name, description, projectLocation, projectFundingType, fa, beneficiaries);
+    public TechnicalAssistanceProject(String name, String description, String projectLocation, ProjectType projectFundingType, FundingArrangement fa, ProjectBeneficiaries beneficiaries, int ownerId) {
+        super(name, description, projectLocation, projectFundingType, fa, beneficiaries, ownerId);
     }
 
     public Consultant getConsultant() {

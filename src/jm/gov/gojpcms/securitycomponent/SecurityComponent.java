@@ -4,13 +4,13 @@
  * and open the template in the editor.
  */
 
-package jm.gov.gojpcms.aclcomponent;
+package jm.gov.gojpcms.securitycomponent;
 
 /**
  *
  * @author JCARJ
  */
-public class AclComponent {
+public class SecurityComponent {
     
     /**
      * Static method to get the current user
@@ -23,12 +23,16 @@ public class AclComponent {
     /**
      * Checks if the given user has appropriate permissions
      * @param usr - User Objects
+     * @param projId Project Id
+     * @param privelage Privilege Level Required
+     * @param action Action being performed
      * @return boolean
      */
-    public static boolean hasAccess(User usr){
+    public static boolean hasAccess(User usr, float projId, Action action, Privilege privelage){
         //Check User Permissions
         
         //Dummy return value: 
+       
         return true;
         
     }

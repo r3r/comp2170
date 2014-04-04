@@ -12,8 +12,8 @@ package jm.gov.gojpcms.projectcomponent;
  */
 public class CapitalProject extends Project{
 
-    public CapitalProject(String name, String description, String projectLocation, ProjectType projectFundingType, FundingArrangement fa, ProjectBeneficiaries beneficiaries) {
-        super(name, description, projectLocation, projectFundingType, fa, beneficiaries);
+    public CapitalProject(String name, String description, String projectLocation, ProjectType projectFundingType, FundingArrangement fa, ProjectBeneficiaries beneficiaries, int ownerId) {
+        super(name, description, projectLocation, projectFundingType, fa, beneficiaries, ownerId);
     }
     
 }

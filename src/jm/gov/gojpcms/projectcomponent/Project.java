@@ -7,6 +7,7 @@
 package jm.gov.gojpcms.projectcomponent;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import jm.gov.gojpcms.documentcomponent.Document;
 
 /**
@@ -47,18 +48,17 @@ public class Project {
     /**
      * Project Document List
      */
-    private ArrayList<Document> projectDocuments;
-    
-    
+    private ArrayList<Document> documents;
+        
     /**
      * Project Geographic Location
      */
-    private String projectLocation;
+    private String location;
     
     /**
      * Project Funding Type : Capital A or Capital B
      */
-    private ProjectType projectFundingType;
+    private ProjectType fundingType;
 
     /**
      * Total Cost for the project (Aggregate cost of all sub-projects)
@@ -68,7 +68,26 @@ public class Project {
      * Project Beneficiaries
      */
     private ProjectBeneficiaries beneficiaries;
-
+    
+    /**
+     * Project Activities
+     */;
+    
+    
+    private ArrayList<Activity> activities;
+    
+    /**
+     * Sub-Projects
+     */    
+    private ArrayList<Project> subProjects;
+    
+    /**
+     * Owner User ID
+     */
+    private int ownerId;
+    
+    
+    
     /**
      * Constructor
      * @param name - Project name
@@ -78,15 +97,16 @@ public class Project {
      * @param fa - funding arrangement
      * @param beneficiaries - beneficiaries
      */
-    public Project(String name, String description, String projectLocation, ProjectType projectFundingType, FundingArrangement fa, ProjectBeneficiaries beneficiaries) {
+    public Project(String name, String description, String projectLocation, ProjectType projectFundingType, FundingArrangement fa, ProjectBeneficiaries beneficiaries, int ownerId) {
         this.id = ++Project.nextId;
         this.name = name;
         this.description = description;
         this.state = ProjectState.INCEPTION;
-        this.projectLocation = projectLocation;
-        this.projectFundingType = projectFundingType;
+        this.location = projectLocation;
+        this.fundingType = projectFundingType;
         this.beneficiaries = beneficiaries;
         this.fa = fa;
+        this.ownerId = ownerId;
     }
 
     public float getId() {
@@ -130,27 +150,27 @@ public class Project {
     }
 
     public ArrayList<Document> getProjectDocuments() {
-        return projectDocuments;
+        return documents;
     }
 
     public void setProjectDocuments(ArrayList<Document> projectDocuments) {
-        this.projectDocuments = projectDocuments;
+        this.documents = projectDocuments;
     }
 
-    public String getProjectLocation() {
-        return projectLocation;
+    public String getLocation() {
+        return location;
     }
 
-    public void setProjectLocation(String projectLocation) {
-        this.projectLocation = projectLocation;
+    public void setLocation(String location) {
+        this.location = location;
     }
 
-    public ProjectType getProjectFundingType() {
-        return projectFundingType;
+    public ProjectType getFundingType() {
+        return fundingType;
     }
 
-    public void setProjectFundingType(ProjectType projectFundingType) {
-        this.projectFundingType = projectFundingType;
+    public void setFundingType(ProjectType fundingType) {
+        this.fundingType = fundingType;
     }
 
     public float getTotalCost() {
@@ -167,6 +187,92 @@ public class Project {
 
     public void setBeneficiaries(ProjectBeneficiaries beneficiaries) {
         this.beneficiaries = beneficiaries;
+    }
+
+    public ArrayList<Activity> getActivities() {
+        return activities;
+    }
+
+    public void setActivities(ArrayList<Activity> activities) {
+        this.activities = activities;
+    }
+    
+    /**
+     * Adds the given activity to the project
+     * @param activity Activity 
+     */
+    public void addActivity(Activity activity) {
+        this.activities.add(activity);
+    }
+
+    /**
+     * 
+     * @param activity Activity being updated
+     * @return Boolean success or failure
+     */
+    public boolean updateActivity(Activity activity){
+        Iterator<Activity> it = this.activities.iterator();
+        Activity act = null;
+        while (it.hasNext()){
+            Activity temp = it.next();
+            if (temp.getId() == activity.getId()){
+                act = temp;
+                break;
+            }
+        }
+        if (act != null){
+            activities.remove(act);
+            activities.add(activity);
+            return true;            
+        }
+        return false;
+    }
+    public ArrayList<Project> getSubProjects() {
+        return subProjects;
+    }
+
+    public void setSubProjects(ArrayList<Project> subProjects) {
+        this.subProjects = subProjects;
+    }
+    
+    /**
+     * Add documents and reports to the project
+     * @param doc Document to add
+     */
+    public void addDocument(Document doc){
+        this.documents.add(doc);
+    }
+    
+    /**
+     * Updates a given document
+     * @param doc Document to update
+     * @return Boolean success or failure
+     */
+    
+    public boolean updateDocument(Document doc){
+        Iterator<Document> it = this.documents.iterator();
+        Document act = null;
+        while (it.hasNext()){
+            Document temp = it.next();
+            if (temp.getId() == doc.getId()){
+                act = temp;
+                break;
+            }
+        }
+        if (act != null){
+            documents.remove(act);
+            documents.add(doc);
+            return true;            
+        }
+        return false;
+    }
+
+    public int getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(int ownerId) {
+        this.ownerId = ownerId;
     }
 
     

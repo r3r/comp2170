@@ -10,6 +10,6 @@ package jm.gov.gojpcms.documentcomponent;
  *
  * @author JCARJ
  */
-public class Report {
+public class Report extends Document{
     
 }

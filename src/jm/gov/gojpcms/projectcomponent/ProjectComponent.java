@@ -8,7 +8,10 @@ package jm.gov.gojpcms.projectcomponent;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import jm.gov.gojpcms.aclcomponent.AclComponent;
+import jm.gov.gojpcms.documentcomponent.Document;
+import jm.gov.gojpcms.securitycomponent.SecurityComponent;
+import jm.gov.gojpcms.securitycomponent.Privilege;
+import jm.gov.gojpcms.securitycomponent.Action;
 import jm.gov.gojpcms.documentcomponent.DocumentComponent;
 import jm.gov.gojpcms.documentcomponent.ExpenditureReport;
 import jm.gov.gojpcms.documentcomponent.ProgressReport;
@@ -33,7 +36,7 @@ public class ProjectComponent {
         
         Report[] details = new Report[2];
       
-        if (AclComponent.hasAccess(AclComponent.getCurrentUser())){
+        if (SecurityComponent.hasAccess(SecurityComponent.getCurrentUser(), id, Action.ProgressReports, Privilege.ViewOnly )){
             Iterator<Project> it = this.projects.iterator();
             Project proj = null;
             while (it.hasNext()){
@@ -66,8 +69,8 @@ public class ProjectComponent {
      */
     public String addProject(String name, String description, String location, ProjectType fundingType, FundingArrangement fa, ProjectBeneficiaries beneficiaries){
         
-       if (AclComponent.hasAccess(AclComponent.getCurrentUser())){
-            Project proj = new Project(name, description, location, fundingType, fa, beneficiaries);
+       if (SecurityComponent.hasAccess(SecurityComponent.getCurrentUser(), 0, Action.RegistrationInformation, Privilege.Update )){
+            Project proj = new Project(name, description, location, fundingType, fa, beneficiaries, SecurityComponent.getCurrentUser().getId());
             projects.add(proj);
             
             return "SUCCESS";
@@ -90,8 +93,8 @@ public class ProjectComponent {
      * @return String - "Success" or "Failure"
      */
     public String editProject(float id,String name, String description, String location, ProjectType fundingType, FundingArrangement fa, ProjectBeneficiaries beneficiaries ){
-        if (AclComponent.hasAccess(AclComponent.getCurrentUser())){
-            Iterator<Project> it = this.projects.iterator();
+        if (SecurityComponent.hasAccess(SecurityComponent.getCurrentUser(), id, Action.RegistrationInformation, Privilege.Update )){
+           Iterator<Project> it = this.projects.iterator();
             Project proj = null;
             while (it.hasNext()){
                 Project temp = it.next();
@@ -108,10 +111,10 @@ public class ProjectComponent {
                     proj.setDescription(description);
                 }
                 if (location != ""){
-                    proj.setProjectLocation(location);
+                    proj.setLocation(location);
                 }
                 if (fundingType != null){
-                    proj.setProjectFundingType(fundingType);
+                    proj.setFundingType(fundingType);
                 }
                 if (fa != null){
                     proj.setFa(fa);
@@ -137,7 +140,7 @@ public class ProjectComponent {
      * @return String "Success" or "Failure"
      */
     public String cancelProject(float id){
-        if (AclComponent.hasAccess(AclComponent.getCurrentUser())){
+        if (SecurityComponent.hasAccess(SecurityComponent.getCurrentUser(), id, Action.RegistrationInformation, Privilege.Update )){
             Iterator<Project> it = this.projects.iterator();
             Project proj = null;
             while (it.hasNext()){
@@ -169,8 +172,8 @@ public class ProjectComponent {
      */
     
     public String addConsultant(float id, Consultant cons){
-        if (AclComponent.hasAccess(AclComponent.getCurrentUser())){
-            Iterator<Project> it = this.projects.iterator();
+        if (SecurityComponent.hasAccess(SecurityComponent.getCurrentUser(), id, Action.RegistrationInformation, Privilege.Update )){
+           Iterator<Project> it = this.projects.iterator();
             Project proj = null;
             while (it.hasNext()){
                 Project temp = it.next();
@@ -199,7 +202,7 @@ public class ProjectComponent {
      * @return String "Success" or "Failure"
      */
     public String removeConsultant(float id){
-        if (AclComponent.hasAccess(AclComponent.getCurrentUser())){
+        if (SecurityComponent.hasAccess(SecurityComponent.getCurrentUser(), id, Action.RegistrationInformation, Privilege.Update )){
             Iterator<Project> it = this.projects.iterator();
             Project proj = null;
             while (it.hasNext()){
@@ -227,21 +230,169 @@ public class ProjectComponent {
      * 
      * @param id Project ID
      * @param activity Activity
-     * @return ""
+     * @return String "Success" or "Failure"
      */
-    public String addActivities(float id, float activity){
-        return "";
+    public String addActivity(float id, Activity activity){
+         if (SecurityComponent.hasAccess(SecurityComponent.getCurrentUser(), id, Action.RegistrationInformation, Privilege.Update )){
+            Iterator<Project> it = this.projects.iterator();
+            Project proj = null;
+            while (it.hasNext()){
+                Project temp = it.next();
+                if(temp.getId() == id){
+                    proj = temp;
+                    break;
+                }
+            }
+            if (proj != null){
+               proj.addActivity(activity);
+               return "SUCCESS";
+            }
+            return "FAILURE";
+         }
+         return "FAILURE";
+    }
+    
+    
+    /**
+     * 
+     * @param id Project ID
+     * @param activity Activity
+     * @return String "Success" or "Failure"
+     */
+    public String updateActivities(float id, Activity activity){
+        if (SecurityComponent.hasAccess(SecurityComponent.getCurrentUser(), id, Action.RegistrationInformation, Privilege.Update )){
+            Iterator<Project> it = this.projects.iterator();
+            Project proj = null;
+            while (it.hasNext()){
+                Project temp = it.next();
+                if(temp.getId() == id){
+                    proj = temp;
+                    break;
+                }
+            }
+            if (proj != null){
+               proj.updateActivity(activity);
+               return "SUCCESS";
+            }
+            return "FAILURE";
+         }
+         return "FAILURE";
+    
     }
     
     /**
      * 
      * @param id Project ID
-     * @param activityId Activity ID
-     * @param activity Activity
-     * @return ""
+     * @param document Document to add
+     * @return String "Success" or "Failure"
      */
-    public String updateActivities(float id, float activityId, float activity){
-        return "";
+    public String addDocument(float id, Document document){
+         if (SecurityComponent.hasAccess(SecurityComponent.getCurrentUser(), id, Action.ExpenditureReports, Privilege.Update)){
+            Iterator<Project> it = this.projects.iterator();
+            Project proj = null;
+            while (it.hasNext()){
+                Project temp = it.next();
+                if(temp.getId() == id){
+                    proj = temp;
+                    break;
+                }
+            }
+            if (proj != null){
+               proj.addDocument(document);
+               return "SUCCESS";
+            }
+            return "FAILURE";
+         }
+         return "FAILURE";
     }
     
+    /**
+     * 
+     * @param id Project ID
+     * @param document Document to update
+     * @return String "Success" or "Failure"
+     */
+    public String updateDocument(float id, Document document){
+         if (SecurityComponent.hasAccess(SecurityComponent.getCurrentUser(), id, Action.ExpenditureReports, Privilege.Update)){
+            Iterator<Project> it = this.projects.iterator();
+            Project proj = null;
+            while (it.hasNext()){
+                Project temp = it.next();
+                if(temp.getId() == id){
+                    proj = temp;
+                    break;
+                }
+            }
+            if (proj != null){
+               proj.updateDocument(document);
+               return "SUCCESS";
+            }
+            return "FAILURE";
+         }
+         return "FAILURE";
+    }
+    
+    /**
+     * The owner of the project can transfer ownership to any other user
+     * @param id Project Id
+     * @param userId - new user id
+     * @return string "SUCCESS" or "FAILURE"
+     */
+    public String transferOwnership(float id, int userId){
+        if (SecurityComponent.hasAccess(SecurityComponent.getCurrentUser(), id, Action.RegistrationInformation, Privilege.Update )){
+            Iterator<Project> it = this.projects.iterator();
+            Project proj = null;
+            while (it.hasNext()){
+                Project temp = it.next();
+                if(temp.getId() == id){
+                    proj = temp;
+                    break;
+                }
+            }
+            if (proj != null){
+                if(SecurityComponent.getCurrentUser().getId() == proj.getOwnerId()){
+                    proj.setOwnerId(userId);
+                    return "SUCCESS";
+                }
+                return "FAILURE";
+            }
+            return "FAILURE";
+        }
+        return "FAILURE";            
+    }
+    
+    /**
+     * 
+     * @param id Project Id
+     * @param status Project Status to update to
+     * @return String "SUCCESS" or "FAILURE"
+     */
+    public String changeProjectStatus(float id, ProjectState status){
+        if (SecurityComponent.hasAccess(SecurityComponent.getCurrentUser(), id, Action.RegistrationInformation, Privilege.Update )){
+            Iterator<Project> it = this.projects.iterator();
+            Project proj = null;
+            while (it.hasNext()){
+                Project temp = it.next();
+                if(temp.getId() == id){
+                    proj = temp;
+                    break;
+                }
+            }
+            if (proj != null){
+                proj.setState(status);
+                return "SUCCESS";
+            }
+            return "FAILURE";
+        }
+        return "FAILURE";
+    }
+    
+    
+    public String assignUsersToProjects(float id, Action[] projActions, Privilege[] privileges){
+        if (SecurityComponent.hasAccess(SecurityComponent.getCurrentUser(), id, Action.UserManagement, Privilege.Update )){
+            //Set Permissions Here
+            return "SUCCESS";
+        }
+        return "FAILURE";
+    }
 }
