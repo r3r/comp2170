@@ -161,5 +161,87 @@ public class ProjectComponent {
         }
     }
     
+    /**
+     * 
+     * @param id - Project ID
+     * @param cons - Consultant
+     * @return String "Success" or "Failure"
+     */
+    
+    public String addConsultant(float id, Consultant cons){
+        if (AclComponent.hasAccess(AclComponent.getCurrentUser())){
+            Iterator<Project> it = this.projects.iterator();
+            Project proj = null;
+            while (it.hasNext()){
+                Project temp = it.next();
+                if(temp.getId() == id){
+                    proj = temp;
+                    break;
+                }
+            }
+            if (proj != null){
+                try {
+                    TechnicalAssistanceProject tap = (TechnicalAssistanceProject) proj;
+                    tap.setConsultant(cons);
+                    return "SUCCESS";
+                }
+                catch(Exception e){
+                    return "FAILURE";
+                }
+            }
+        }         
+        return "FAILURE";
+    }
+    
+    /**
+     * 
+     * @param id - Project ID
+     * @return String "Success" or "Failure"
+     */
+    public String removeConsultant(float id){
+        if (AclComponent.hasAccess(AclComponent.getCurrentUser())){
+            Iterator<Project> it = this.projects.iterator();
+            Project proj = null;
+            while (it.hasNext()){
+                Project temp = it.next();
+                if(temp.getId() == id){
+                    proj = temp;
+                    break;
+                }
+            }
+            if (proj != null){
+                try {
+                    TechnicalAssistanceProject tap = (TechnicalAssistanceProject) proj;
+                    tap.setConsultant(null);
+                    return "SUCCESS";
+                }
+                catch(Exception e){
+                    return "FAILURE";
+                }
+            }
+        }         
+        return "FAILURE";
+    }
+    
+    /**
+     * 
+     * @param id Project ID
+     * @param activity Activity
+     * @return ""
+     */
+    public String addActivities(float id, float activity){
+        return "";
+    }
+    
+    /**
+     * 
+     * @param id Project ID
+     * @param activityId Activity ID
+     * @param activity Activity
+     * @return ""
+     */
+    public String updateActivities(float id, float activityId, float activity){
+        return "";
+    }
     
 }
