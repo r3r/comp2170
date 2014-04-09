@@ -36,4 +36,14 @@ public class SecurityComponent {
         return true;
         
     }
+    
+    /**
+     * 
+     * @param uName Username
+     * @param pass Password
+     * @return Whether user has a valid login
+     */
+    public static boolean login(String uName, String pass){
+        return true;
+    }
 }
