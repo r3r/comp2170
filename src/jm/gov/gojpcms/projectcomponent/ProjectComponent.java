@@ -6,12 +6,14 @@
 
 package jm.gov.gojpcms.projectcomponent;
 
+import jm.gov.gojpcms.enums.ProjectState;
+import jm.gov.gojpcms.enums.ProjectType;
 import java.util.ArrayList;
 import java.util.Iterator;
 import jm.gov.gojpcms.documentcomponent.Document;
 import jm.gov.gojpcms.securitycomponent.SecurityComponent;
-import jm.gov.gojpcms.securitycomponent.Privilege;
-import jm.gov.gojpcms.securitycomponent.Action;
+import jm.gov.gojpcms.enums.Privilege;
+import jm.gov.gojpcms.enums.Action;
 import jm.gov.gojpcms.documentcomponent.DocumentComponent;
 import jm.gov.gojpcms.documentcomponent.ExpenditureReport;
 import jm.gov.gojpcms.documentcomponent.ProgressReport;
@@ -26,7 +28,11 @@ public class ProjectComponent {
      * List of all Projects in GOJPCMS
      */
     private ArrayList<Project> projects;
-
+    
+    public ProjectComponent(){
+        this.projects = new ArrayList<Project>();
+    }
+    
     /**
      * 
      * @param id - Project Id
@@ -59,20 +65,99 @@ public class ProjectComponent {
     
     /**
      * 
+     * @param id Project Id
+     * @return Status report or failure
+     */
+    public String getProjectStatus(float id){
+         if (SecurityComponent.hasAccess(SecurityComponent.getCurrentUser(), id, Action.ProgressReports, Privilege.ViewOnly )){
+            Iterator<Project> it = this.projects.iterator();
+            Project proj = null;
+            while (it.hasNext()){
+                Project temp = it.next();
+                if(temp.getId() == id){
+                    proj = temp;
+                    break;
+                }
+            }               
+             if (proj != null){
+                 return proj.getStatusReport();
+             }
+             else {
+                 return "FAILURE";
+             }
+         }
+         else {
+             return "FAILURE";
+         }
+    }
+    /**
+     * 
+     * @return ArrayList<String> List of project Ids and Names
+     */
+    public ArrayList<String> viewProjectsList(){
+        if (SecurityComponent.hasAccess(SecurityComponent.getCurrentUser(), 0, Action.ProgressReports, Privilege.ViewOnly )){
+            ArrayList<String> list = new ArrayList<String>();
+            Iterator<Project> it = projects.iterator();
+            while(it.hasNext()){
+                Project proj = it.next();
+                list.add(proj.getId() + " - " + proj.getName());            
+            }
+            return list;
+        }
+        else {
+            return new ArrayList<String>();
+        }
+    }
+    
+    /**
+     * 
+     * @param id Project Id
+     * @return returns activities list for the project or failure
+     */
+    public ArrayList<String> viewActivitiesList(float id){
+        if (SecurityComponent.hasAccess(SecurityComponent.getCurrentUser(), id, Action.ProgressReports, Privilege.ViewOnly )){
+            Iterator<Project> it = this.projects.iterator();
+            Project proj = null;
+            while (it.hasNext()){
+                Project temp = it.next();
+                if(temp.getId() == id){
+                    proj = temp;
+                    break;
+                }
+            }               
+             if (proj != null){
+                 return proj.getActivitiesList();
+             }
+             else {
+                 return new ArrayList<String>();
+             }
+        }
+        else {
+            return new ArrayList<String>();
+        }
+    }
+    
+    /**
+     * 
      * @param name - project name
      * @param description - project description
      * @param location - geographic location
+     * @param projClass - Project Class : Technical Assistance or Capital Project
      * @param fundingType - funding type
      * @param fa - Funding arrangement
      * @param beneficiaries - beneficiaries
      * @return String - "Success" or "Failure"
      */
-    public String addProject(String name, String description, String location, ProjectType fundingType, FundingArrangement fa, ProjectBeneficiaries beneficiaries){
+    public String addProject(String name, String description, String location, String projClass, ProjectType fundingType, FundingArrangement fa, ProjectBeneficiaries beneficiaries){
         
        if (SecurityComponent.hasAccess(SecurityComponent.getCurrentUser(), 0, Action.RegistrationInformation, Privilege.Update )){
-            Project proj = new Project(name, description, location, fundingType, fa, beneficiaries, SecurityComponent.getCurrentUser().getId());
-            projects.add(proj);
-            
+            if (projClass.equals("T")){
+                TechnicalAssistanceProject proj = new TechnicalAssistanceProject(name, description, location, fundingType, fa, beneficiaries, SecurityComponent.getCurrentUser().getId());
+                projects.add(proj);
+            }else {
+                CapitalProject proj = new CapitalProject(name, description, location, fundingType, fa, beneficiaries, SecurityComponent.getCurrentUser().getId());
+                projects.add(proj);
+            }  
             return "SUCCESS";
         }
         else {
@@ -104,13 +189,13 @@ public class ProjectComponent {
                 }
             }               
              if (proj != null){
-                if (name != ""){
+                if (!name.equals("")){
                     proj.setName(name);
                 }
-                if (description != ""){
+                if (!description.equals("")){
                     proj.setDescription(description);
                 }
-                if (location != ""){
+                if (!location.equals("")){
                     proj.setLocation(location);
                 }
                 if (fundingType != null){
@@ -271,13 +356,38 @@ public class ProjectComponent {
                 }
             }
             if (proj != null){
-               proj.updateActivity(activity);
-               return "SUCCESS";
+               if(proj.updateActivity(activity)){
+                   return "SUCCESS";
+               }
+               return "FAILURE";
             }
             return "FAILURE";
          }
          return "FAILURE";
     
+    }
+    
+    public Activity getActivity(float id, float activityId){
+        if (SecurityComponent.hasAccess(SecurityComponent.getCurrentUser(), id, Action.RegistrationInformation, Privilege.ViewOnly )){
+            Iterator<Project> it = this.projects.iterator();
+            Project proj = null;
+            while (it.hasNext()){
+                Project temp = it.next();
+                if(temp.getId() == id){
+                    proj = temp;
+                    break;
+                }
+            }
+            if (proj != null){
+                return proj.getActivity(activityId);
+            }
+            else {
+                return new Activity();
+            }
+        }
+        else {
+            return new Activity();
+        }
     }
     
     /**

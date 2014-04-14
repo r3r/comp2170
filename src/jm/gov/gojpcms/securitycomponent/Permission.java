@@ -6,6 +6,8 @@
 
 package jm.gov.gojpcms.securitycomponent;
 
+import jm.gov.gojpcms.enums.Privilege;
+
 /**
  *
  * @author JCARJ

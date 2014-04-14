@@ -6,6 +6,8 @@
 
 package jm.gov.gojpcms.projectcomponent;
 
+import jm.gov.gojpcms.enums.ProjectState;
+import jm.gov.gojpcms.enums.ProjectType;
 import java.util.ArrayList;
 import java.util.Iterator;
 import jm.gov.gojpcms.documentcomponent.Document;
@@ -274,24 +276,54 @@ public class Project {
     public void setOwnerId(int ownerId) {
         this.ownerId = ownerId;
     }
-
     
-   
+    /**
+     * 
+     * @return Stringified status report
+     */
+    public String getStatusReport(){
+        String report;
+        report = "Status: " + this.state.name();
+        Iterator<Activity> it = this.activities.iterator();
+        report += "\nActivities";
+        float totalPercentage = 0;
+        while(it.hasNext()){
+            Activity act = it.next();
+            float weight = act.getWeight();
+            float percentage = act.getPercentage();
+            report += "\n" + act; 
+            totalPercentage += weight * percentage;
+        }
+        report += "\n Overall Percent Complete: " + totalPercentage + "%";
+        
+        return report;
+    }
+    
+    /**
+     * 
+     * @return Stringifed Activities List
+     */
+    public ArrayList<String> getActivitiesList(){
+        ArrayList<String> list = new ArrayList<String>();
+        Iterator<Activity> it = activities.iterator();
+        while(it.hasNext()){
+            Activity act = it.next();
+            list.add(act.toString());            
+        }
+        return list;
+    }
+    
+   public Activity getActivity(float id){
+       Iterator<Activity> it = this.activities.iterator();
+        Activity act = null;
+        while (it.hasNext()){
+            Activity temp = it.next();
+            if (temp.getId() == id){
+                return temp;
+            }
+        }
+        return new Activity();
+   }
     
 }
 
-/**
- * Enum for the different project states
- * @author JCARJ
- */
-enum ProjectState {
-    INCEPTION, PREPARATION, IMPLEMENTATION, TERMINATION, POSTEVALUATION, CANCELLED
-}
-
-/**
- * Enum for project funding type
- * @author JCARJ
- */
-enum ProjectType {
-    CAPITAL_A, CAPITAL_B
-}

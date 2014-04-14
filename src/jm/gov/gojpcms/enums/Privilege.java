@@ -1,6 +1,6 @@
 
 
-package jm.gov.gojpcms.securitycomponent;
+package jm.gov.gojpcms.enums;
 /**
  *
  * @author JCARJ

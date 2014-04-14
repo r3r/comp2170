@@ -6,6 +6,8 @@
 
 package jm.gov.gojpcms.projectcomponent;
 
+import jm.gov.gojpcms.enums.ProjectType;
+
 /**
  *
  * @author JCARJ

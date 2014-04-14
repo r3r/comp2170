@@ -6,9 +6,12 @@
 
 package jm.gov.gojpcms.textui;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.Iterator;
 import java.util.Scanner;
 import jm.gov.gojpcms.documentcomponent.Document;
+import jm.gov.gojpcms.enums.ProjectType;
 import jm.gov.gojpcms.projectcomponent.Activity;
 import jm.gov.gojpcms.projectcomponent.Consultant;
 import jm.gov.gojpcms.projectcomponent.FundingArrangement;
@@ -133,7 +136,9 @@ public class GOJPCMSTextUI
       try
       {
          String projType = entry.nextLine();
-      
+         System.out.println("Which class of project is this? [T]echnical Assitance or [C]apital Project?");
+         String projClass = entry.nextLine();
+         
          if ( projType.equals( "a" ) )
          {
             System.out.println( "Please enter a name for the project: " );
@@ -147,7 +152,14 @@ public class GOJPCMSTextUI
 
             //RITESH? Here:
             //Problem: ProjectType field
-            //component.addProject( name, description, location, ProjectType.CAPITAL_A, new FundingArrangement(), new ProjectBeneficiaries() );
+            //Chad? Here:
+            //Fixed it
+            if(projClass.equals("T")){
+                component.addProject( name, description, location, "T", ProjectType.CAPITAL_A, new FundingArrangement(), new ProjectBeneficiaries() );
+            }else {
+                component.addProject( name, description, location, "C", ProjectType.CAPITAL_A, new FundingArrangement(), new ProjectBeneficiaries() );
+            }
+            
 
             secondMenu();
          }
@@ -165,7 +177,13 @@ public class GOJPCMSTextUI
 
             //RITESH? Here:
             //Problem: ProjectType field needs to be entered so the project can be made.
-            //component.addProject( name, description, location, ProjectType.CAPITAL_B, new FundingArrangement() , new ProjectBeneficiaries() );
+            //Chad? Here:
+            //Fixed it
+            if(projClass.equals("T")){
+                component.addProject( name, description, location, "T", ProjectType.CAPITAL_B, new FundingArrangement() , new ProjectBeneficiaries() );
+            }else{
+                component.addProject( name, description, location, "C", ProjectType.CAPITAL_B, new FundingArrangement() , new ProjectBeneficiaries() );
+            }
 
             secondMenu();
          }
@@ -193,7 +211,17 @@ public class GOJPCMSTextUI
       
          //RITESH? Here:
          //Problem: we need the addProject method to work in choiceOne method for this to work.
-         component.addActivity(id, new Activity() ); //random Activity object for testing.
+         //Chad? Here:
+         //Fixed it
+         Activity act = new Activity();
+         
+         System.out.println("Please enter the name of the activity: ");
+         act.setName(entry.nextLine());
+         
+         System.out.println("Please enter the weight of the activity: ");
+         act.setWeight(entry.nextFloat());
+         
+         component.addActivity(id, act ); //random Activity object for testing.
 
          secondMenu();
       }
@@ -219,7 +247,13 @@ public class GOJPCMSTextUI
       
          //RITESH? Here:
          //Problem: we need the addProject method to work in choiceOne method for this to work.
-         component.addConsultant( id, new Consultant() ); //random consultant object for testing.
+         //Chad? Here:
+         //Fixed it
+         Consultant cons = new Consultant();
+         System.out.println("Please enter the consultant name: ");
+         cons.setName(entry.nextLine());
+         
+         component.addConsultant( id, cons ); //random consultant object for testing.
 
          secondMenu();
       }
@@ -243,7 +277,9 @@ public class GOJPCMSTextUI
          float id = entry.nextFloat();
          //RITESH? Here:
          //Decision about reports making need to be done.
-         component.addDocument(id, new Document() );
+         //Chad? Here:
+         //Fixed it
+         System.out.println(component.getProjectStatus(id));
 
          secondMenu();
       }
@@ -261,8 +297,12 @@ public class GOJPCMSTextUI
       int attempts = 0;
       
       ProjectComponent projComponent = new ProjectComponent();
-      
-      System.out.println( "Select an action" );
+      //CHAD? HERE
+      //I don't think we need option 1 cause it's the same as option 4 in menu 1
+      //I don't think we need Option 4 either...too much work...let's leave it
+      //So remove 1 and 4
+      //If you want u can move 2 and 3 upto menu 1..ur choice
+      System.out.println( "Select an action" ); 
       System.out.println( "1: View a Project" );
       System.out.println( "2: Update Activities" );
       System.out.println( "3: Remove Consultants" );
@@ -342,7 +382,37 @@ public class GOJPCMSTextUI
       System.out.println( "Please enter the project id: " );
       float id = entry.nextFloat();
       
-      component.updateActivities( id, new Activity() );
+      //Chad? HERE:
+      //Fixed it
+      ArrayList<String> activities = component.viewActivitiesList(id);
+      Iterator<String> it = activities.iterator();
+      System.out.println("Activities\n");
+      System.out.println("ID\tName\tWeight\tPercentage");
+      while(it.hasNext()){
+          System.out.println(it.next());
+      }
+      
+      System.out.println();
+      System.out.println("Choose an Activity from above and enter its id: ");
+      float actId = entry.nextFloat();
+      
+      Activity act = component.getActivity(id, actId);
+      
+      System.out.println("Please enter the name of the activity( '.' for no change): ");
+      String temp = entry.nextLine();
+      if (!temp.equals("."))
+           act.setName(temp);
+
+      System.out.println("Please enter the weight of the activity ( '-1' for no change): ");
+      float tmp = entry.nextFloat();
+      if (tmp != -1)
+           act.setWeight(tmp);
+      
+      System.out.println("Please enter percentage completion");
+      act.setPercentage(entry.nextFloat());
+      
+      
+      component.updateActivities( id, act);
    }
    
    public static void actionThree( ProjectComponent component )
