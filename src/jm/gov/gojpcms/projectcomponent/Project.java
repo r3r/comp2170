@@ -109,6 +109,8 @@ public class Project {
         this.beneficiaries = beneficiaries;
         this.fa = fa;
         this.ownerId = ownerId;
+        this.activities = new ArrayList<Activity>();
+        this.subProjects = new ArrayList<Project>();
     }
 
     public float getId() {
@@ -294,7 +296,7 @@ public class Project {
             report += "\n" + act; 
             totalPercentage += weight * percentage;
         }
-        report += "\n Overall Percent Complete: " + totalPercentage + "%";
+        report += "\nOverall Percent Complete: " + totalPercentage + "%";
         
         return report;
     }
