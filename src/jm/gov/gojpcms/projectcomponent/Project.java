@@ -206,6 +206,8 @@ public class Project {
      * @param activity Activity 
      */
     public void addActivity(Activity activity) {
+        if (this.state == ProjectState.INCEPTION)
+            this.state = ProjectState.PREPARATION;
         this.activities.add(activity);
     }
 
@@ -220,6 +222,8 @@ public class Project {
         while (it.hasNext()){
             Activity temp = it.next();
             if (temp.getId() == activity.getId()){
+                if (this.state == ProjectState.PREPARATION)
+                    this.state = ProjectState.IMPLEMENTATION;
                 act = temp;
                 break;
             }
