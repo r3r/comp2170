@@ -61,15 +61,16 @@ public class GOJPCMSTextUI
       
       ProjectComponent projComponent = new ProjectComponent();
       
-      System.out.println( "\n\nAvailable actions" );
-      System.out.println( "1: Create a New Project" );
-      System.out.println( "2: More options[if projects already exist]" );
-      System.out.println( "3: Exit" );
-      
-      System.out.print( "\nPlease select an action: " );
+    
       
       while ( true )
       {
+            System.out.println( "\n\nAvailable actions" );
+            System.out.println( "1: Create a New Project" );
+            System.out.println( "2: More options[if projects already exist]" );
+            System.out.println( "3: Exit" );
+
+            System.out.print( "\nPlease select an action: " );
          try
          {
             choice = Integer.parseInt( selection.nextLine() ); 
@@ -78,13 +79,13 @@ public class GOJPCMSTextUI
             if ( choice == 1 )
             {
                choiceOne( projComponent );
-               break;
+               
             }
             
             if ( choice == 2 )
             {
-               secondMenu();
-               break;
+               secondMenu(projComponent);
+               
             }
             
             if ( choice == 3 )
@@ -93,7 +94,7 @@ public class GOJPCMSTextUI
                System.exit( 0 );
             }
             
-            if ( choice != 1 | choice != 2 )
+            if ( choice != 1 | choice != 2 | choice != 3 )
             {
                throw new InputMismatchException();
             }
@@ -101,7 +102,7 @@ public class GOJPCMSTextUI
          catch( NumberFormatException | InputMismatchException error )
          {
             attempts += 1;
-            if ( attempts == 3 )
+            if ( attempts == -1 )
             {
                System.out.println( "You have exceed the number of attempts." );
                break;
@@ -114,26 +115,28 @@ public class GOJPCMSTextUI
       } //End of while loop.
    } //End of firstMenu.
    
-   public static void secondMenu()
+   public static void secondMenu(ProjectComponent projComponent)
    {
       Scanner selection = new Scanner( System.in );
       int choice;
       int attempts = 0;
       
-      ProjectComponent projComponent = new ProjectComponent();
+     
       
-      System.out.println( "\n\nAvailable actions" );
-      System.out.println( "1: Create a New Project" );
-      System.out.println( "2: Add a Project Activity" );
-      System.out.println( "3: Add a New Consultant" );
-      System.out.println( "4: Generate a Status Report" );
-      System.out.println( "5: More Options" );
-      System.out.println( "6: Exit" );
-      
-      System.out.print( "\nPlease select an action: " );
+    
       
       while ( true )
       {
+            System.out.println( "\n\nAvailable actions" );
+            System.out.println( "1: Create a New Project" );
+            System.out.println( "2: View Projects List");
+            System.out.println( "3: Add a Project Activity" );
+            System.out.println( "4: Add a New Consultant" );
+            System.out.println( "5: Generate a Status Report" );
+            System.out.println( "6: More Options" );
+            System.out.println( "7: Exit" );
+
+            System.out.print( "\nPlease select an action: " );
          try
          {
             choice = Integer.parseInt( selection.nextLine() ); 
@@ -142,40 +145,44 @@ public class GOJPCMSTextUI
             if ( choice == 1 )
             {
                choiceOne( projComponent );
-               break;
+               
             }
-
             if ( choice == 2 )
             {
                choiceTwo( projComponent );
-               break;
+              
             }
-
             if ( choice == 3 )
             {
                choiceThree( projComponent );
-               break;
+               
             }
 
             if ( choice == 4 )
             {
-               choiceFour( projComponent );
-               break;
+               chocieFour( projComponent );
+               
             }
-            
+
             if ( choice == 5 )
             {
-               thirdMenu();
-               break;
+               choiceFive( projComponent );
+               
             }
             
             if ( choice == 6 )
+            {
+               thirdMenu(projComponent);
+               
+            }
+            
+            if ( choice == 7 )
             {
                System.out.println( "Thank you using this application." );
                System.exit( 0 );
             }
             
-            if ( choice != 1 | choice != 2 | choice != 3 | choice != 4 | choice != 5 | choice != 6 )
+            if ( choice != 1 | choice != 2 | choice != 3 | choice != 4 | choice != 5 | choice != 6 | choice != 7)
             {
                throw new InputMismatchException();
             }
@@ -196,13 +203,13 @@ public class GOJPCMSTextUI
       } //End of while loop.
    } //End of secondMenu.
    
-   public static void thirdMenu()
+   public static void thirdMenu(ProjectComponent projComponent)
    {
       Scanner selection = new Scanner( System.in );
       int choice;
       int attempts = 0;
       
-      ProjectComponent projComponent = new ProjectComponent();
+      
       //CHAD? HERE
       //I don't think we need option 1 cause it's the same as option 4 in menu 1
       //I don't think we need Option 4 either...too much work...let's leave it
@@ -211,16 +218,17 @@ public class GOJPCMSTextUI
       //Changes made:
       //removed 1 and 4
       //Renamed actionTwo amd actionThree to one and two respectively.
-      System.out.println( "\n\nSelect an action" ); 
-      System.out.println( "1: Update Activities" );
-      System.out.println( "2: Remove Consultants" );
-      System.out.println( "3: Return to previous menu" );
-      System.out.println( "4: Exit" );
-      
-      System.out.print( "Action of your choice: " );
+     
       
       while ( true )
       {
+        System.out.println( "\n\nSelect an action" ); 
+        System.out.println( "1: Update Activities" );
+        System.out.println( "2: Remove Consultants" );
+        System.out.println( "3: Return to previous menu" );
+        System.out.println( "4: Exit" );
+
+        System.out.print( "Action of your choice: " );
          try
          {
             choice = Integer.parseInt( selection.nextLine() ); 
@@ -229,19 +237,18 @@ public class GOJPCMSTextUI
             if ( choice == 1 )
             {
                actionOne( projComponent );
-               break;
+               
             }
 
             if ( choice == 2 )
             {
                actionTwo( projComponent );
-               break;
+              
             }
             
             if ( choice == 3 )
             {
-               secondMenu();
-               break;
+               return;
             }
             
             if ( choice == 4 )
@@ -315,15 +322,15 @@ public class GOJPCMSTextUI
             //Fixed it
             if (projClass.equals("T"))
             {
-                component.addProject( name, description, location, "T", ProjectType.CAPITAL_A, new FundingArrangement(), new ProjectBeneficiaries() );
+                System.out.println(component.addProject( name, description, location, "T", ProjectType.CAPITAL_A, new FundingArrangement(), new ProjectBeneficiaries() ));
             }
             
             if (projClass.equals("C"))
             {
-                component.addProject( name, description, location, "C", ProjectType.CAPITAL_A, new FundingArrangement(), new ProjectBeneficiaries() );
+                System.out.println(component.addProject( name, description, location, "C", ProjectType.CAPITAL_A, new FundingArrangement(), new ProjectBeneficiaries() ));
             }
             
-            secondMenu();
+            secondMenu( component);
          }
 
          if ( projType.equals( "b" ) | projType.equals( "B" ))
@@ -354,14 +361,14 @@ public class GOJPCMSTextUI
             //Fixed it
             if(projClass.equals("T"))
             {
-                component.addProject( name, description, location, "T", ProjectType.CAPITAL_B, new FundingArrangement() , new ProjectBeneficiaries() );
+                System.out.println(component.addProject( name, description, location, "T", ProjectType.CAPITAL_B, new FundingArrangement() , new ProjectBeneficiaries() ));
             }
             if (projClass.equals("C"))
             {
-                component.addProject( name, description, location, "C", ProjectType.CAPITAL_B, new FundingArrangement() , new ProjectBeneficiaries() );
+                System.out.println(component.addProject( name, description, location, "C", ProjectType.CAPITAL_B, new FundingArrangement() , new ProjectBeneficiaries() ));
             }
 
-            secondMenu();
+            secondMenu(component);
          }
          
          if ( !( projType.equals( "a" ) ) | !( projType.equals( "b" ) ) | !( projType.equals( "A" ) ) | !( projType.equals( "B" ) ) )
@@ -372,12 +379,24 @@ public class GOJPCMSTextUI
       catch( NullPointerException | InputMismatchException error )
       {
          System.out.println( "\n-NO VALID ENTRY WAS GIVEN.-\n" );
-         firstMenu();
+         //firstMenu();
       }
       
    }
    
-   public static void choiceTwo( ProjectComponent component )
+   public static void choiceTwo( ProjectComponent component ){
+        System.out.println( "\n-YOU HAVE CHOSEN TO View Projects-\n" );
+        ArrayList<String> list = component.viewProjectsList();
+        System.out.println("ID\tType\t\tClass\t\t\tName\t\tConsultant");
+        Iterator<String> it = list.iterator();
+        while(it.hasNext()){
+            System.out.println(it.next());
+        }
+        System.out.println();
+        
+   }
+   
+   public static void choiceThree( ProjectComponent component )
    {
       Scanner entry = new Scanner( System.in );
       Scanner entry1 = new Scanner( System.in );
@@ -405,16 +424,17 @@ public class GOJPCMSTextUI
          
          component.addActivity(id, act ); 
 
-         secondMenu();
+         //secondMenu();
       }
       catch( NullPointerException error )
       { 
+         error.printStackTrace();
          System.out.println( "\n-PROJECT WAS NEVER CREATED SUCCESSFULLY-\n" );
-         firstMenu();
+        // firstMenu();
       }
    }
    
-   public static void choiceThree( ProjectComponent component )
+   public static void chocieFour( ProjectComponent component )
    {
       Scanner entry = new Scanner( System.in );
       Scanner entry1 = new Scanner( System.in );
@@ -437,18 +457,18 @@ public class GOJPCMSTextUI
          System.out.print("Please enter the consultant name: ");
          cons.setName(entry1.nextLine());
          
-         component.addConsultant( id, cons );
+         System.out.println(component.addConsultant( id, cons ));
 
-         secondMenu();
+         //secondMenu();
       }
       catch( NullPointerException error )
       {
          System.out.println( "\n-PROJECT WAS NEVER CREATED SUCCESSFULLY-\n" );
-         firstMenu();
+         //firstMenu();
       }
    }
    
-   public static void choiceFour( ProjectComponent component )
+   public static void choiceFive( ProjectComponent component )
    {
       Scanner entry = new Scanner( System.in );
       System.out.println( "\n-YOU HAVE CHOSEN TO GENERATE A STATUS REPORT-\n" );
@@ -466,12 +486,12 @@ public class GOJPCMSTextUI
          //Fixed it
          System.out.println(component.getProjectStatus(id));
 
-         secondMenu();
+         //secondMenu();
       }
       catch( NullPointerException error )
       {
          System.out.println( "\n-PROJECT WAS NEVER CREATED SUCCESSFULLY-\n" );
-         firstMenu();
+         //1firstMenu();
       }
       
    }
@@ -517,7 +537,7 @@ public class GOJPCMSTextUI
       
       component.updateActivities( id, act);
       
-      secondMenu();
+      //secondMenu();
    }
    
    public static void actionTwo( ProjectComponent component )
@@ -530,6 +550,6 @@ public class GOJPCMSTextUI
       
       component.removeConsultant( id );
       
-      secondMenu();
+      //secondMenu();
    }
 }

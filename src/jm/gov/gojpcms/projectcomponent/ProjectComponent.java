@@ -23,14 +23,14 @@ import jm.gov.gojpcms.documentcomponent.Report;
  * Manager/Driver for Project and related classes
  * @author JCARJ
  */
-public class ProjectComponent {
+public  class ProjectComponent {
     /**
      * List of all Projects in GOJPCMS
      */
-    private ArrayList<Project> projects;
+    private static ArrayList<Project> projects = new ArrayList<Project>();
     
     public ProjectComponent(){
-        this.projects = new ArrayList<Project>();
+        
     }
     
     /**
@@ -72,9 +72,11 @@ public class ProjectComponent {
          if (SecurityComponent.hasAccess(SecurityComponent.getCurrentUser(), id, Action.ProgressReports, Privilege.ViewOnly )){
             Iterator<Project> it = this.projects.iterator();
             Project proj = null;
+        
             while (it.hasNext()){
                 Project temp = it.next();
                 if(temp.getId() == id){
+                    System.out.println(temp.getId());
                     proj = temp;
                     break;
                 }
@@ -98,9 +100,22 @@ public class ProjectComponent {
         if (SecurityComponent.hasAccess(SecurityComponent.getCurrentUser(), 0, Action.ProgressReports, Privilege.ViewOnly )){
             ArrayList<String> list = new ArrayList<String>();
             Iterator<Project> it = projects.iterator();
+         
             while(it.hasNext()){
                 Project proj = it.next();
-                list.add(proj.getId() + " - " + proj.getName());            
+                String projClass;
+                String type = proj.getFundingType().name();
+                String cons = "";
+                try {
+                    TechnicalAssistanceProject ta = (TechnicalAssistanceProject) proj;
+                    projClass = "Technical";
+                    if (ta.getConsultant() != null)
+                        cons = ta.getConsultant().getName();
+                }catch (ClassCastException e) {
+                   
+                    projClass = "Capital Project";
+                }
+                list.add(proj.getId() + "\t" + type + "\t" + projClass + "\t\t" + proj.getName() + "\t\t" + cons);            
             }
             return list;
         }
@@ -152,6 +167,7 @@ public class ProjectComponent {
         
        if (SecurityComponent.hasAccess(SecurityComponent.getCurrentUser(), 0, Action.RegistrationInformation, Privilege.Update )){
             if (projClass.equals("T")){
+                System.out.println("Here");
                 TechnicalAssistanceProject proj = new TechnicalAssistanceProject(name, description, location, fundingType, fa, beneficiaries, SecurityComponent.getCurrentUser().getId());
                 projects.add(proj);
             }else {
