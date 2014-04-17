@@ -1,0 +1,48 @@
+package JJARC;
+
+
+/**
+ * Write a description of class mapComponent here.
+ * 
+ * @author (your name) 
+ * @version (a version number or a date)
+ */
+public class mapComponent
+{
+    // instance variables 
+    
+    public mapComponent()
+    {
+        // initialise instance variables
+        
+    }
+  
+    public void generateMap(String location)
+    {
+        // put your code here
+    }
+}
+package JJARC;
+
+
+/**
+ * Write a description of class mapComponent here.
+ * 
+ * @author (your name) 
+ * @version (a version number or a date)
+ */
+public class mapComponent
+{
+    // instance variables 
+    
+    public mapComponent()
+    {
+        // initialise instance variables
+        
+    }
+  
+    public void generateMap(String location)
+    {
+        // put your code here
+    }
+}

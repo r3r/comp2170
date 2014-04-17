@@ -1,0 +1,25 @@
+package JJARC;
+
+
+/**
+ * Write a description of class Security here.
+ * 
+ * @author (your name) 
+ * @version (a version number or a date)
+ */
+public class Security
+{
+    // instance variables - replace the example below with your own
+    
+    public Security()
+    {
+        // initialise instance variables
+        
+    }
+    
+    public boolean hasAccess()
+    {
+        // put your code here
+        return false;
+    }
+}

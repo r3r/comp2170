@@ -76,7 +76,6 @@ public  class ProjectComponent {
             while (it.hasNext()){
                 Project temp = it.next();
                 if(temp.getId() == id){
-                    System.out.println(temp.getId());
                     proj = temp;
                     break;
                 }
@@ -167,7 +166,6 @@ public  class ProjectComponent {
         
        if (SecurityComponent.hasAccess(SecurityComponent.getCurrentUser(), 0, Action.RegistrationInformation, Privilege.Update )){
             if (projClass.equals("T")){
-                System.out.println("Here");
                 TechnicalAssistanceProject proj = new TechnicalAssistanceProject(name, description, location, fundingType, fa, beneficiaries, SecurityComponent.getCurrentUser().getId());
                 projects.add(proj);
             }else {

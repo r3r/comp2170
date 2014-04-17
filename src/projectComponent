@@ -1,0 +1,54 @@
+package JJARC;
+
+
+/**
+ * Write a description of class projectComponent here.
+ * 
+ * @author (your name) 
+ * @version (a version number or a date)
+ */
+public class projectComponent
+{
+    /**
+     * Constructor for objects of class projectComponent
+     */
+    public projectComponent()
+    {
+        
+    }
+    
+        
+    public void getProjectDetails()
+    {
+        // put your code here
+        
+    }
+    public void getStatusReport()
+    {
+        // put your code here
+       
+    }
+    
+    public int addProject(String name, String type, String fundingType, String Location)
+    {
+        // put your code here
+        if (aclComponent.hasAccess(System.CurrentUser))
+        {
+            int projectId= 1;
+            Project project= new Project(String name, String type, String fundingType, String Location)
+        }
+        else
+        {
+            projectId=0;
+        }
+        
+        return projectId;
+    }
+    
+    public void addConsultant()
+    {
+        // put your code here
+        
+    }
+    
+}
